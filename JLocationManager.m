@@ -91,8 +91,8 @@
     
     if (userLocationDictionary) {
         
-        NSNumber *latitude = [Utility objectOrNilForKey:@"lat" fromDictionary:userLocationDictionary];
-        NSNumber *longitude = [Utility objectOrNilForKey:@"long" fromDictionary:userLocationDictionary];
+        NSNumber *latitude = [self objectOrNilForKey:@"lat" fromDictionary:userLocationDictionary];
+        NSNumber *longitude = [self objectOrNilForKey:@"long" fromDictionary:userLocationDictionary];
         CLLocation *userLocation = [[CLLocation alloc] initWithLatitude:[latitude floatValue] longitude:[longitude floatValue]];
         
         return userLocation;
@@ -109,6 +109,12 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:@"EuserLocation"];
     [defaults synchronize];
+}
+
++ (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict
+{
+    id object = [dict objectForKey:aKey];
+    return [object isEqual:[NSNull null]] ? nil : object;
 }
 
 @end
