@@ -13,11 +13,11 @@
 
 + (JLocationManager *)sharedInstance;
 
-- (void)saveLocation:(CLLocation*)location;
-- (NSDictionary*)getLocation;
-- (CLLocation*)getCLLLocation;
-- (void)removeLocation;
-- (BOOL)authorizationStatusAllowed;
+//- (void)saveLocation:(CLLocation*)location;
+//- (NSDictionary*)getLocation;
++ (CLLocation*)getCLLLocation;
+//- (void)removeLocation;
+//- (BOOL)authorizationStatusAllowed;
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 

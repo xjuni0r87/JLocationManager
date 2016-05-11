@@ -4,8 +4,12 @@
 //
 
 #import "JLocationManager.h"
+#import <CoreLocation/CoreLocation.h>
+
 
 @implementation JLocationManager
+
+
 
 + (JLocationManager *)sharedInstance
 {
@@ -22,7 +26,6 @@
     self = [super init];
     if (self) {
         
-        i=0;
         [self removeLocation];
         
         self.locationManager = [[CLLocationManager alloc] init];
@@ -76,16 +79,17 @@
 }
 
 - (void)saveLocation:(CLLocation*)location {
+    
     NSNumber *lat = [NSNumber numberWithDouble:location.coordinate.latitude];
     NSNumber *lon = [NSNumber numberWithDouble:location.coordinate.longitude];
     NSDictionary *userLocation=@{@"lat":lat,@"long":lon};
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setSecretObject:userLocation forKey:@"userLocation"];
+    [defaults setObject:userLocation forKey:@"userLocation"];
     [defaults synchronize];
 }
 
-- (CLLocation*)getCLLLocation {
++ (CLLocation*)getCLLLocation {
     
     NSDictionary * userLocationDictionary = [[JLocationManager sharedInstance] getLocation];
     
@@ -102,12 +106,12 @@
 }
 
 - (NSDictionary*)getLocation {
-    return [[NSUserDefaults standardUserDefaults] secretObjectForKey:@"userLocation"];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"userLocation"];
 }
 
 - (void)removeLocation {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:@"EuserLocation"];
+    [defaults removeObjectForKey:@"userLocation"];
     [defaults synchronize];
 }
 
